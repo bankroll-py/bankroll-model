@@ -57,6 +57,13 @@ jobs:
           destination: test-reports
       
       - run:
+          name: test installing
+          command: |
+            python3 -m venv --clear venv
+            . venv/bin/activate
+            pip install .
+
+      - run:
           name: linting
           command: |
             . venv/bin/activate
