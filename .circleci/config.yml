@@ -38,18 +38,26 @@ jobs:
           paths:
             - ./venv
           key: v1-dependencies-{{ checksum "requirements.txt" }}
+      
+      - run:
+          name: typecheck
+          command: |
+            . venv/bin/activate
+            mypy --strict -p bankroll
+            mypy --strict -p tests
 
-      # run tests!
-      # this example uses Django's built-in test-runner
-      # other common Python testing frameworks include pytest and nose
-      # https://pytest.org
-      # https://nose.readthedocs.io
       - run:
           name: run tests
           command: |
             . venv/bin/activate
-            python manage.py test
+            python -m unittest -v
 
       - store_artifacts:
           path: test-reports
           destination: test-reports
+      
+      - run:
+          name: linting
+          command: |
+            . venv/bin/activate
+            black --check bankroll tests
