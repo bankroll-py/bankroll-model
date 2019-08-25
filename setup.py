@@ -13,7 +13,7 @@ setup(
     long_description_content_type="text/markdown",
     license="MIT",
     url="https://github.com/bankroll-py/bankroll-model",
-    packages=find_packages(),
+    packages=["bankroll.model"],
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Intended Audience :: Developers",
