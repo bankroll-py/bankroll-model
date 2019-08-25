@@ -6,7 +6,6 @@ from typing import Any, Iterable, Optional, Tuple, TypeVar
 
 from .cash import Cash
 from .instrument import Instrument
-import pandas as pd
 
 _Item = TypeVar('_Item')
 
@@ -51,6 +50,7 @@ class Quote:
         return self.midpoint or self.last or self.close
 
 
+# TODO: Factor this into a plugin architecture, not part of the model.
 class MarketDataProvider(ABC):
     # Fetches up-to-date quotes for the provided instruments.
     # May return the results in any order.
@@ -59,5 +59,5 @@ class MarketDataProvider(ABC):
                     ) -> Iterable[Tuple[Instrument, Quote]]:
         pass
 
-    def fetchHistoricalData(self, instrument: Instrument) -> pd.DataFrame:
+    def fetchHistoricalData(self, instrument: Instrument) -> Any: # pd.DataFrame
         pass
