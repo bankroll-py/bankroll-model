@@ -55,6 +55,12 @@ jobs:
       - store_artifacts:
           path: test-reports
           destination: test-reports
+
+      - run:
+          name: linting
+          command: |
+            . venv/bin/activate
+            black --check bankroll tests
       
       - run:
           name: test installing
@@ -62,9 +68,3 @@ jobs:
             python3 -m venv --clear venv
             . venv/bin/activate
             pip install .
-
-      - run:
-          name: linting
-          command: |
-            . venv/bin/activate
-            black --check bankroll tests
