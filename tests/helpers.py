@@ -21,7 +21,6 @@ from hypothesis.strategies import (
 )
 from bankroll.model import (
     AccountBalance,
-    AccountData,
     Activity,
     Cash,
     Currency,
@@ -366,17 +365,6 @@ register_type_strategy(
 )
 
 register_type_strategy(Quote, uniformCurrencyQuotes())
-
-register_type_strategy(
-    Settings, one_of([from_type(s) for s in Settings.__subclasses__()])
-)
-
-register_type_strategy(
-    AccountData,
-    sampled_from(AccountData.__subclasses__()).map(
-        lambda cls: cls.fromSettings(fixtureSettings, lenient=False)
-    ),
-)
 
 register_type_strategy(AccountBalance, accountBalances())
 

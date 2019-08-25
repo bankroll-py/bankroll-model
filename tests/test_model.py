@@ -1,6 +1,5 @@
 from bankroll.model import (
     AccountBalance,
-    AccountData,
     Cash,
     Currency,
     Instrument,
@@ -14,6 +13,7 @@ from bankroll.model import (
     Quote,
     Trade,
 )
+
 from datetime import date
 from decimal import Decimal, ROUND_UP
 from hypothesis import assume, given, reproduce_failure, seed

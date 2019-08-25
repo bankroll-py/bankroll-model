@@ -1,4 +1,3 @@
-from .account import AccountData
 from .activity import Activity, CashPayment, Trade, TradeFlags
 from .balance import AccountBalance
 from .cash import Currency, Cash
