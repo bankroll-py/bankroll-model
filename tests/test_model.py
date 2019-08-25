@@ -99,7 +99,7 @@ class TestCash(unittest.TestCase):
         one_of(
             helpers.cashAmounts(),
             helpers.cashAmounts().map(lambda d: int(d.to_integral_value())),
-        ).filter(lambda x: x != 0),
+        ).filter(lambda x: bool(x != 0)),
     )
     def test_divideCash(self, cashA: Cash, b: T) -> None:
         cashC = cashA / b

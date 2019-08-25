@@ -43,8 +43,8 @@ jobs:
           name: typecheck
           command: |
             . venv/bin/activate
-            mypy --strict -p bankroll
-            mypy --strict -p tests
+            mypy --strict --implicit-reexport -p bankroll
+            mypy --strict --implicit-reexport -p tests
 
       - run:
           name: run tests
