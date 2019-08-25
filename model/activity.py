@@ -52,20 +52,20 @@ class Trade(Activity):
 
     def __post_init__(self) -> None:
         if not self.quantity.is_finite():
-            raise ValueError(
-                f'Trade quantity {self.quantity} is not a finite number')
+            raise ValueError(f"Trade quantity {self.quantity} is not a finite number")
 
         if self.flags not in [
-                TradeFlags.OPEN, TradeFlags.CLOSE,
-                TradeFlags.OPEN | TradeFlags.DRIP,
-                TradeFlags.OPEN | TradeFlags.ASSIGNED_OR_EXERCISED,
-                TradeFlags.CLOSE | TradeFlags.EXPIRED,
-                TradeFlags.CLOSE | TradeFlags.ASSIGNED_OR_EXERCISED,
-                TradeFlags.CLOSE | TradeFlags.LIQUIDATED
+            TradeFlags.OPEN,
+            TradeFlags.CLOSE,
+            TradeFlags.OPEN | TradeFlags.DRIP,
+            TradeFlags.OPEN | TradeFlags.ASSIGNED_OR_EXERCISED,
+            TradeFlags.CLOSE | TradeFlags.EXPIRED,
+            TradeFlags.CLOSE | TradeFlags.ASSIGNED_OR_EXERCISED,
+            TradeFlags.CLOSE | TradeFlags.LIQUIDATED,
         ]:
-            raise ValueError(f'Invalid combination of flags: {self.flags}')
+            raise ValueError(f"Invalid combination of flags: {self.flags}")
 
-        super().__setattr__('quantity', self.quantizeQuantity(self.quantity))
+        super().__setattr__("quantity", self.quantizeQuantity(self.quantity))
 
     @property
     def price(self) -> Cash:
@@ -80,9 +80,9 @@ class Trade(Activity):
 
     def __str__(self) -> str:
         if self.quantity > 0:
-            action = 'Buy   '
+            action = "Buy   "
         elif TradeFlags.LIQUIDATED in self.flags:
-            action = 'Sell-L'
+            action = "Sell-L"
         else:
-            action = 'Sell  '
-        return f'{self.date.date()} {action} {abs(self.quantity):>9} {self.instrument:21} {self.amount.paddedString(padding=10)} (before {self.fees.paddedString(padding=5)} in fees)'
+            action = "Sell  "
+        return f"{self.date.date()} {action} {abs(self.quantity):>9} {self.instrument:21} {self.amount.paddedString(padding=10)} (before {self.fees.paddedString(padding=5)} in fees)"

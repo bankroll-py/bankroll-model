@@ -17,31 +17,36 @@ class AccountBalance:
 
     def __post_init__(self) -> None:
         super().__setattr__(
-            'cash', {
+            "cash",
+            {
                 currency: cash
                 for currency, cash in self.cash.items()
                 if cash.quantity != Decimal(0)
-            })
+            },
+        )
 
         for currency, cash in self.cash.items():
             if currency != cash.currency:
-                raise ValueError(
-                    f'Currency {currency} must match cash entry {cash}')
+                raise ValueError(f"Currency {currency} must match cash entry {cash}")
 
-    def __add__(self, other: Any) -> 'AccountBalance':
+    def __add__(self, other: Any) -> "AccountBalance":
         if isinstance(other, AccountBalance):
             newCash = self.cash.copy()
             for currency, otherCash in other.cash.items():
-                newCash[currency] = newCash.get(
-                    currency, Cash(currency=currency,
-                                   quantity=Decimal(0))) + otherCash
+                newCash[currency] = (
+                    newCash.get(currency, Cash(currency=currency, quantity=Decimal(0)))
+                    + otherCash
+                )
 
             return AccountBalance(cash=newCash)
         elif isinstance(other, Cash):
             newCash = self.cash.copy()
-            newCash[other.currency] = newCash.get(
-                other.currency,
-                Cash(currency=other.currency, quantity=Decimal(0))) + other
+            newCash[other.currency] = (
+                newCash.get(
+                    other.currency, Cash(currency=other.currency, quantity=Decimal(0))
+                )
+                + other
+            )
 
             return AccountBalance(cash=newCash)
         else:
@@ -49,28 +54,32 @@ class AccountBalance:
 
     __radd__ = __add__
 
-    def __sub__(self, other: Any) -> 'AccountBalance':
+    def __sub__(self, other: Any) -> "AccountBalance":
         if isinstance(other, AccountBalance):
             newCash = self.cash.copy()
             for currency, otherCash in other.cash.items():
-                newCash[currency] = newCash.get(
-                    currency, Cash(currency=currency,
-                                   quantity=Decimal(0))) - otherCash
+                newCash[currency] = (
+                    newCash.get(currency, Cash(currency=currency, quantity=Decimal(0)))
+                    - otherCash
+                )
 
             return AccountBalance(cash=newCash)
         elif isinstance(other, Cash):
             newCash = self.cash.copy()
-            newCash[other.currency] = newCash.get(
-                other.currency,
-                Cash(currency=other.currency, quantity=Decimal(0))) - other
+            newCash[other.currency] = (
+                newCash.get(
+                    other.currency, Cash(currency=other.currency, quantity=Decimal(0))
+                )
+                - other
+            )
 
             return AccountBalance(cash=newCash)
         else:
             return NotImplemented
 
     def __str__(self) -> str:
-        s = 'Balances:'
+        s = "Balances:"
         for cash in self.cash.values():
-            s += f'\n{cash}'
+            s += f"\n{cash}"
 
         return s

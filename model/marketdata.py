@@ -7,7 +7,7 @@ from typing import Any, Iterable, Optional, Tuple, TypeVar
 from .cash import Cash
 from .instrument import Instrument
 
-_Item = TypeVar('_Item')
+_Item = TypeVar("_Item")
 
 
 def _allEqual(i: Iterable[_Item]) -> bool:
@@ -27,15 +27,17 @@ class Quote:
 
     def __post_init__(self) -> None:
         if self.bid and self.ask and self.ask < self.bid:
-            raise ValueError(
-                f'Expected ask {self.ask} to be at least bid {self.bid}')
+            raise ValueError(f"Expected ask {self.ask} to be at least bid {self.bid}")
 
         if not _allEqual(
-            (price.currency
-             for price in [self.bid, self.ask, self.last, self.close]
-             if price is not None)):
+            (
+                price.currency
+                for price in [self.bid, self.ask, self.last, self.close]
+                if price is not None
+            )
+        ):
             raise ValueError(
-                f'Currencies in a quote should match: {[self.bid, self.ask, self.last, self.close]}'
+                f"Currencies in a quote should match: {[self.bid, self.ask, self.last, self.close]}"
             )
 
     @property
@@ -55,9 +57,10 @@ class MarketDataProvider(ABC):
     # Fetches up-to-date quotes for the provided instruments.
     # May return the results in any order.
     @abstractmethod
-    def fetchQuotes(self, instruments: Iterable[Instrument]
-                    ) -> Iterable[Tuple[Instrument, Quote]]:
+    def fetchQuotes(
+        self, instruments: Iterable[Instrument]
+    ) -> Iterable[Tuple[Instrument, Quote]]:
         pass
 
-    def fetchHistoricalData(self, instrument: Instrument) -> Any: # pd.DataFrame
+    def fetchHistoricalData(self, instrument: Instrument) -> Any:  # pd.DataFrame
         pass
