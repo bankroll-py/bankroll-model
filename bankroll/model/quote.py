@@ -50,17 +50,3 @@ class Quote:
     @property
     def market(self) -> Optional[Cash]:
         return self.midpoint or self.last or self.close
-
-
-# TODO: Factor this into a plugin architecture, not part of the model.
-class MarketDataProvider(ABC):
-    # Fetches up-to-date quotes for the provided instruments.
-    # May return the results in any order.
-    @abstractmethod
-    def fetchQuotes(
-        self, instruments: Iterable[Instrument]
-    ) -> Iterable[Tuple[Instrument, Quote]]:
-        pass
-
-    def fetchHistoricalData(self, instrument: Instrument) -> Any:  # pd.DataFrame
-        pass

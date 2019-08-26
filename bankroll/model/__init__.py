@@ -11,5 +11,5 @@ from .instrument import (
     Future,
     Forex,
 )
-from .marketdata import Quote, MarketDataProvider
+from .quote import Quote
 from .position import Position
