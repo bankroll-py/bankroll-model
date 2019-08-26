@@ -14,6 +14,7 @@ setup(
     license="MIT",
     url="https://github.com/bankroll-py/bankroll-model",
     packages=["bankroll.model"],
+    package_data={"bankroll.model": ["py.typed"]},
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Intended Audience :: Developers",
