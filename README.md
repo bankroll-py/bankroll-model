@@ -1,1 +1,1 @@
-# bankroll-model
+# bankroll-model [![CircleCI](https://circleci.com/gh/bankroll-py/bankroll-model.svg?style=svg&circle-token=d21e7621caaa262910dfdd209c116533c49db8b2)](https://circleci.com/gh/bankroll-py/bankroll-model)
