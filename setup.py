@@ -8,7 +8,7 @@ setup(
     version="0.4.0",
     author="Justin Spahr-Summers",
     author_email="justin@jspahrsummers.com",
-    description="TODO",
+    description="Generalized model objects for financial instruments",
     long_description=long_description,
     long_description_content_type="text/markdown",
     license="MIT",
