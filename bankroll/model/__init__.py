@@ -1,4 +1,4 @@
-from .activity import Activity, CashPayment, Trade, TradeFlags
+from .activity import Activity, CashPayment, ConvertableModel, Trade, TradeFlags
 from .balance import AccountBalance
 from .cash import Currency, Cash
 from .instrument import (
@@ -13,6 +13,7 @@ from .instrument import (
 )
 from .quote import Quote
 from .position import Position
+from .modelconverter import ModelConverter
 
 __all__ = [
     "Activity",
@@ -32,4 +33,6 @@ __all__ = [
     "Forex",
     "Quote",
     "Position",
+    "ModelConverter",
+    "ConvertableModel",
 ]

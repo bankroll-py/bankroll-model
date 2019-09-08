@@ -1,8 +1,9 @@
 from dataclasses import dataclass
 from decimal import ROUND_HALF_EVEN, Decimal
-from typing import Any, ClassVar
+from typing import Any, ClassVar, List
 
 from .cash import Cash
+from .convertablemodel import ConvertableModel
 from .instrument import Instrument
 
 
@@ -43,6 +44,13 @@ class Position:
             raise ValueError(
                 f"Cost basis {self.costBasis!r} should be zero if quantity is zero"
             )
+
+    @staticmethod
+    def dataframeColumns() -> List[str]:
+        return ["Instrument", "Quantity", "Avg Price"]
+
+    def dataframeValues(self) -> List[Any]:
+        return [self.instrument, self.quantity.normalize(), self.averagePrice]
 
     def __add__(self, other: Any) -> "Position":
         if isinstance(other, Position):
