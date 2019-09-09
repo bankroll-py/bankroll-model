@@ -6,14 +6,21 @@ from enum import Flag, auto
 from typing import Any, Dict, List, Optional
 
 from .cash import Cash
-from .convertablemodel import ConvertableModel
+from .brmodel import BRModel
 from .instrument import Instrument, Stock
 from .position import Position
 
 
 @dataclass(frozen=True)
-class Activity(ABC):
+class Activity(BRModel):
     date: datetime
+
+    @staticmethod
+    def dataframeColumns() -> List[str]:
+        pass
+
+    def dataframeValues(self) -> List[Any]:
+        pass
 
 
 # Represents a cash payment, such as a stock dividend or bond interest, whether

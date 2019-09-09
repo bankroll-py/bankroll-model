@@ -3,12 +3,12 @@ from decimal import ROUND_HALF_EVEN, Decimal
 from typing import Any, ClassVar, List
 
 from .cash import Cash
-from .convertablemodel import ConvertableModel
+from .brmodel import BRModel
 from .instrument import Instrument
 
 
 @dataclass(frozen=True)
-class Position:
+class Position(BRModel):
     quantityQuantization: ClassVar[Decimal] = Decimal("0.0001")
 
     instrument: Instrument

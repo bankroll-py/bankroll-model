@@ -1,17 +1,18 @@
 from hypothesis import assume, given, reproduce_failure, seed
-from hypothesis.strategies import from_type, lists
-from typing import List
+from hypothesis.strategies import from_type, iterables, lists
+from typing import Iterable, List, Sequence
 from tests import helpers
 
-from bankroll.model import ConvertableModel, ModelConverter, Position, Trade
+from bankroll.model import BRModel, Position, Trade
+from bankroll.converter import dataframeForModelObjects
 
 import unittest
 
 
 class TestModelConverter(unittest.TestCase):
     @given(lists(from_type(Trade), min_size=3, max_size=3))
-    def test_convertTrades(self, trades: List[Trade]) -> None:
-        df = ModelConverter.dataframe(trades)
+    def test_convertTrades(self, trades: Sequence[Trade]) -> None:
+        df = dataframeForModelObjects(trades)
         self.assertEqual(len(df.index), len(trades))
 
         for i in range(len(trades)):
@@ -23,8 +24,8 @@ class TestModelConverter(unittest.TestCase):
             self.assertEqual(df.at[i, "Fees"], trades[i].fees)
 
     @given(lists(from_type(Position), min_size=3, max_size=3))
-    def test_convertPositions(self, positions: List[Position]) -> None:
-        df = ModelConverter.dataframe(positions)
+    def test_convertPositions(self, positions: Sequence[Position]) -> None:
+        df = dataframeForModelObjects(positions)
         self.assertEqual(len(df.index), len(positions))
 
         for i in range(len(positions)):

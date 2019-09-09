@@ -1,4 +1,4 @@
-from .activity import Activity, CashPayment, ConvertableModel, Trade, TradeFlags
+from .activity import Activity, CashPayment, Trade, TradeFlags
 from .balance import AccountBalance
 from .cash import Currency, Cash
 from .instrument import (
@@ -13,26 +13,25 @@ from .instrument import (
 )
 from .quote import Quote
 from .position import Position
-from .modelconverter import ModelConverter
+from .brmodel import BRModel
 
 __all__ = [
-    "Activity",
-    "CashPayment",
-    "Trade",
-    "TradeFlags",
     "AccountBalance",
-    "Currency",
-    "Cash",
-    "Instrument",
-    "Stock",
+    "Activity",
     "Bond",
+    "BRModel",
+    "Cash",
+    "CashPayment",
+    "Currency",
+    "Forex",
+    "Future",
+    "FutureOption",
+    "Instrument",
     "Option",
     "OptionType",
-    "FutureOption",
-    "Future",
-    "Forex",
-    "Quote",
     "Position",
-    "ModelConverter",
-    "ConvertableModel",
+    "Quote",
+    "Stock",
+    "Trade",
+    "TradeFlags",
 ]

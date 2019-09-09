@@ -13,8 +13,8 @@ setup(
     long_description_content_type="text/markdown",
     license="MIT",
     url="https://github.com/bankroll-py/bankroll-model",
-    packages=["bankroll.model"],
-    package_data={"bankroll.model": ["py.typed"]},
+    packages=["bankroll.model", "bankroll.converter"],
+    package_data={"bankroll.model": ["py.typed"], "bankroll.converter": ["py.typed"]},
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Intended Audience :: Developers",
