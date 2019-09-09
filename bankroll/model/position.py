@@ -1,14 +1,13 @@
 from dataclasses import dataclass
 from decimal import ROUND_HALF_EVEN, Decimal
-from typing import Any, ClassVar, List
+from typing import Any, ClassVar
 
 from .cash import Cash
-from .brmodel import BRModel
 from .instrument import Instrument
 
 
 @dataclass(frozen=True)
-class Position(BRModel):
+class Position:
     quantityQuantization: ClassVar[Decimal] = Decimal("0.0001")
 
     instrument: Instrument
@@ -44,13 +43,6 @@ class Position(BRModel):
             raise ValueError(
                 f"Cost basis {self.costBasis!r} should be zero if quantity is zero"
             )
-
-    @staticmethod
-    def dataframeColumns() -> List[str]:
-        return ["Instrument", "Quantity", "Avg Price"]
-
-    def dataframeValues(self) -> List[Any]:
-        return [self.instrument, self.quantity.normalize(), self.averagePrice]
 
     def __add__(self, other: Any) -> "Position":
         if isinstance(other, Position):

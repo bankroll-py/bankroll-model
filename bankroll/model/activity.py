@@ -3,24 +3,16 @@ from dataclasses import dataclass
 from datetime import datetime
 from decimal import Decimal
 from enum import Flag, auto
-from typing import Any, Dict, List, Optional
+from typing import Optional
 
 from .cash import Cash
-from .brmodel import BRModel
 from .instrument import Instrument, Stock
 from .position import Position
 
 
 @dataclass(frozen=True)
-class Activity(BRModel):
+class Activity(ABC):
     date: datetime
-
-    @staticmethod
-    def dataframeColumns() -> List[str]:
-        pass
-
-    def dataframeValues(self) -> List[Any]:
-        pass
 
 
 # Represents a cash payment, such as a stock dividend or bond interest, whether
@@ -96,20 +88,6 @@ class Trade(Activity):
             action = "Sell"
 
         return action
-
-    @staticmethod
-    def dataframeColumns() -> List[str]:
-        return ["Date", "Action", "Quantity", "Instrument", "Amount", "Fees"]
-
-    def dataframeValues(self) -> List[Any]:
-        return [
-            self.date.date(),
-            self.action,
-            abs(self.quantity),
-            self.instrument,
-            self.amount,
-            self.fees,
-        ]
 
     def __str__(self) -> str:
         return f"{self.date.date()} {self.action:6} {abs(self.quantity):>9} {self.instrument:21} {self.amount.paddedString(padding=10)} (before {self.fees.paddedString(padding=5)} in fees)"

@@ -13,25 +13,23 @@ from .instrument import (
 )
 from .quote import Quote
 from .position import Position
-from .brmodel import BRModel
 
 __all__ = [
-    "AccountBalance",
     "Activity",
-    "Bond",
-    "BRModel",
-    "Cash",
     "CashPayment",
-    "Currency",
-    "Forex",
-    "Future",
-    "FutureOption",
-    "Instrument",
-    "Option",
-    "OptionType",
-    "Position",
-    "Quote",
-    "Stock",
     "Trade",
     "TradeFlags",
+    "AccountBalance",
+    "Currency",
+    "Cash",
+    "Instrument",
+    "Stock",
+    "Bond",
+    "Option",
+    "OptionType",
+    "FutureOption",
+    "Future",
+    "Forex",
+    "Quote",
+    "Position",
 ]
