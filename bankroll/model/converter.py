@@ -15,14 +15,14 @@ def dataframeForModelObjects(items: Sequence[_ConvertibleModel]) -> pandas.DataF
     assert pandas, "Pandas needs to be installed to use this function"
 
     if len(items) > 0:
-        rows = [[fn(i) for fn in dataframeColumnFunctions(i).values()] for i in items]
-        columns = dataframeColumnFunctions(items[0]).keys()
+        rows = [[fn(i) for fn in _dataframeColumnFunctions(i).values()] for i in items]
+        columns = _dataframeColumnFunctions(items[0]).keys()
         return pandas.DataFrame(rows, columns=columns)
     else:
         return pandas.DataFrame()
 
 
-def dataframeColumnFunctions(
+def _dataframeColumnFunctions(
     model: _ConvertibleModel
 ) -> Dict[str, Callable[[_ConvertibleModel], Any]]:
     if isinstance(model, Position):
