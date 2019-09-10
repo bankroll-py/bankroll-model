@@ -5,7 +5,7 @@ from typing import Iterable, List, Sequence
 from tests import helpers
 
 from bankroll.model import Position, Trade
-from bankroll.converter import dataframeForModelObjects
+from bankroll.model.converter import dataframeForModelObjects
 
 import unittest
 

@@ -13,7 +13,7 @@ from .instrument import (
 )
 from .quote import Quote
 from .position import Position
-from ..converter import converter
+from . import converter
 
 __all__ = [
     "AccountBalance",
