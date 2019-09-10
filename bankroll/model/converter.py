@@ -1,4 +1,4 @@
-from typing import Any, Callable, Dict, List, TypeVar, cast
+from typing import Any, Callable, Dict, Sequence, TypeVar, cast
 
 try:
     import pandas  # type: ignore
@@ -11,7 +11,7 @@ from .position import Position
 _ConvertibleModel = TypeVar("_ConvertibleModel", Position, Activity)
 
 
-def dataframeForModelObjects(items: List[_ConvertibleModel]) -> pandas.DataFrame:
+def dataframeForModelObjects(items: Sequence[_ConvertibleModel]) -> pandas.DataFrame:
     if pandas and len(items) > 0:
         rows = [[fn(i) for fn in dataframeColumnFunctions(i).values()] for i in items]
         columns = dataframeColumnFunctions(items[0]).keys()
