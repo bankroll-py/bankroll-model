@@ -1,4 +1,4 @@
-from typing import Any, Callable, Dict, List, TypeVar
+from typing import Any, Callable, Dict, List, TypeVar, cast
 
 try:
     import pandas  # type: ignore
@@ -9,7 +9,6 @@ from .activity import Activity, Trade
 from .position import Position
 
 _ConvertibleModel = TypeVar("_ConvertibleModel", Position, Activity)
-_ColumnFunctions = Dict[str, Callable[[_ConvertibleModel], Any]]
 
 
 def dataframeForModelObjects(items: List[_ConvertibleModel]) -> pandas.DataFrame:
@@ -21,7 +20,9 @@ def dataframeForModelObjects(items: List[_ConvertibleModel]) -> pandas.DataFrame
         return pandas.DataFrame()
 
 
-def dataframeColumnFunctions(model: _ConvertibleModel) -> _ColumnFunctions:
+def dataframeColumnFunctions(
+    model: _ConvertibleModel
+) -> Dict[str, Callable[[_ConvertibleModel], Any]]:
     if isinstance(model, Position):
         return {
             "Instrument": lambda p: str(p.instrument),
@@ -32,11 +33,11 @@ def dataframeColumnFunctions(model: _ConvertibleModel) -> _ColumnFunctions:
     elif isinstance(model, Trade):
         return {
             "Date": lambda t: t.date.date(),
-            "Action": lambda t: t.action,
-            "Quantity": lambda t: abs(t.quantity),
-            "Instrument": lambda t: str(t.instrument),
-            "Amount": lambda t: t.amount,
-            "Fees": lambda t: t.fees,
+            "Action": lambda t: cast(Trade, t).action,
+            "Quantity": lambda t: abs(cast(Trade, t).quantity),
+            "Instrument": lambda t: str(cast(Trade, t).instrument),
+            "Amount": lambda t: cast(Trade, t).amount,
+            "Fees": lambda t: cast(Trade, t).fees,
         }
     else:
         return {}
