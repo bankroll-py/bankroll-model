@@ -63,6 +63,13 @@ jobs:
             black --check bankroll tests
       
       - run:
+          name: typecheck without pandas
+          command: |
+            . venv/bin/activate
+            pip uninstall -y pandas
+            mypy --namespace-packages --strict --implicit-reexport bankroll/
+      
+      - run:
           name: test installing
           command: |
             python3 -m venv --clear venv
