@@ -5,9 +5,9 @@ try:
 except ImportError:
     pandas = None
 
-from bankroll.model import Position, Trade
+from bankroll.model import Activity, Position, Trade
 
-_ConvertibleModel = TypeVar("_ConvertibleModel", Position, Trade)
+_ConvertibleModel = TypeVar("_ConvertibleModel", Position, Activity)
 _ColumnFunctions = Dict[str, Callable[[_ConvertibleModel], Any]]
 
 

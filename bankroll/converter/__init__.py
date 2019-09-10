@@ -1,3 +1,3 @@
-from .modelconverter import dataframeForModelObjects
+from .converter import dataframeForModelObjects
 
 __all__ = ["dataframeForModelObjects"]
