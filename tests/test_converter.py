@@ -1,6 +1,6 @@
 from hypothesis import assume, given, reproduce_failure, seed
 from hypothesis.strategies import from_type, lists
-from pandas import pandas as pd
+import pandas as pd  # type: ignore
 from typing import Iterable, List, Sequence
 from tests import helpers
 
