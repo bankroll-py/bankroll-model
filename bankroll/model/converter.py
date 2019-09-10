@@ -12,7 +12,9 @@ _ConvertibleModel = TypeVar("_ConvertibleModel", Position, Activity)
 
 
 def dataframeForModelObjects(items: Sequence[_ConvertibleModel]) -> pandas.DataFrame:
-    if pandas and len(items) > 0:
+    assert pandas, "Pandas needs to be installed to use this function"
+
+    if len(items) > 0:
         rows = [[fn(i) for fn in dataframeColumnFunctions(i).values()] for i in items]
         columns = dataframeColumnFunctions(items[0]).keys()
         return pandas.DataFrame(rows, columns=columns)
