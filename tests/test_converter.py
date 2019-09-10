@@ -1,5 +1,5 @@
 from hypothesis import assume, given, reproduce_failure, seed
-from hypothesis.strategies import from_type, iterables, lists
+from hypothesis.strategies import from_type, lists
 from pandas import pandas as pd
 from typing import Iterable, List, Sequence
 from tests import helpers
@@ -11,8 +11,8 @@ import unittest
 
 
 class TestModelConverter(unittest.TestCase):
-    @given(lists(from_type(Trade), min_size=3, max_size=3))
-    def test_convertTrades(self, trades: Sequence[Trade]) -> None:
+    @given(lists(from_type(Trade)))
+    def test_convertTrades(self, trades: List[Trade]) -> None:
         df: pd.DataFrame = dataframeForModelObjects(trades)
         self.assertEqual(len(df.index), len(trades))
 
@@ -24,8 +24,8 @@ class TestModelConverter(unittest.TestCase):
             self.assertEqual(df.at[i, "Amount"], trades[i].amount)
             self.assertEqual(df.at[i, "Fees"], trades[i].fees)
 
-    @given(lists(from_type(Position), min_size=3, max_size=3))
-    def test_convertPositions(self, positions: Sequence[Position]) -> None:
+    @given(lists(from_type(Position)))
+    def test_convertPositions(self, positions: List[Position]) -> None:
         df: pd.DataFrame = dataframeForModelObjects(positions)
         self.assertEqual(len(df.index), len(positions))
 
