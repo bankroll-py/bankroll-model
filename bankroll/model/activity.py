@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from datetime import datetime
 from decimal import Decimal
 from enum import Flag, auto
-from typing import Any, Dict, Optional
+from typing import Optional
 
 from .cash import Cash
 from .instrument import Instrument, Stock
@@ -78,11 +78,16 @@ class Trade(Activity):
     def proceeds(self) -> Cash:
         return self.amount - self.fees
 
-    def __str__(self) -> str:
+    @property
+    def action(self) -> str:
         if self.quantity > 0:
-            action = "Buy   "
+            action = "Buy"
         elif TradeFlags.LIQUIDATED in self.flags:
             action = "Sell-L"
         else:
-            action = "Sell  "
-        return f"{self.date.date()} {action} {abs(self.quantity):>9} {self.instrument:21} {self.amount.paddedString(padding=10)} (before {self.fees.paddedString(padding=5)} in fees)"
+            action = "Sell"
+
+        return action
+
+    def __str__(self) -> str:
+        return f"{self.date.date()} {self.action:6} {abs(self.quantity):>9} {self.instrument:21} {self.amount.paddedString(padding=10)} (before {self.fees.paddedString(padding=5)} in fees)"
