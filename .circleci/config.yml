@@ -1,8 +1,6 @@
-# Python CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-python/ for more details
-#
-version: 2
+version: 2.1
+orbs:
+  python: skillup/python@4.0.0
 jobs:
   build:
     docker:
@@ -26,11 +24,12 @@ jobs:
             - v1-dependencies-{{ checksum "requirements.txt" }}
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
+      
+      - python/venv
 
       - run:
           name: install dependencies
           command: |
-            python3 -m venv venv
             . venv/bin/activate
             pip install -r requirements.txt
 
